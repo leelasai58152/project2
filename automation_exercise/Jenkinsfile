@@ -1,0 +1,35 @@
+pipeline{
+    agent any
+    stages{
+        stage ('install dependisis'){
+            step{
+                bat """
+                    cd automation_exercise
+                    C:\Users\yanam\AppData\Local\Programs\Python\Python313\python.exe -m pip install requirements.txt
+                    """
+                    }}
+        stage('Run_test'){
+            step {
+                bat """
+                    cd automation_exercise
+                    C:\Users\yanam\AppData\Local\Programs\Python\Python313\python.exe -m pytest -v 
+                    docker build -t leela
+                    """
+                }   
+            }
+        }    
+    post{
+        always{
+            publicHTML([
+            allowMissing:false,
+            alwaysLinkWithLastBuild:true,
+            keepAll:true,
+            reportDir:'Project2/reports',
+            eportFile:'report.html',
+            reportName:'Pytest Html Report'])
+                
+            }
+        }
+    } 
+   
+        
