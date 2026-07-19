@@ -25,7 +25,7 @@ pipeline{
             allowMissing:false,
             alwaysLinkToLastBuild:true,
             keepAll:true,
-            reportDir:'Project2/reports',
+            reportDir:'automation_exercise/reports',
             reportFiles:'report.html',
             reportName:'Pytest Html Report'])
                 
