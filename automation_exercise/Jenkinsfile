@@ -2,30 +2,31 @@ pipeline{
     agent any
     stages{
         stage ('install dependisis'){
-            step{
+            steps{
                 bat """
                     cd automation_exercise
-                    C:\Users\yanam\AppData\Local\Programs\Python\Python313\python.exe -m pip install requirements.txt
+                    C:\\Users\\yanam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe -m pip install -r requirements.txt
+                    docker build -t leela .
                     """
                     }}
         stage('Run_test'){
-            step {
+            steps {
                 bat """
                     cd automation_exercise
-                    C:\Users\yanam\AppData\Local\Programs\Python\Python313\python.exe -m pytest -v 
-                    docker build -t leela
+                    C:\\Users\\yanam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe -m pytest -v 
+                    
                     """
                 }   
             }
         }    
     post{
         always{
-            publicHTML([
+            publishHTML([
             allowMissing:false,
-            alwaysLinkWithLastBuild:true,
+            alwaysLinkToLastBuild:true,
             keepAll:true,
             reportDir:'Project2/reports',
-            eportFile:'report.html',
+            reportFiles:'report.html',
             reportName:'Pytest Html Report'])
                 
             }
